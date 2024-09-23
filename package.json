@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "patch-version": "npm version patch",
     "run": "node index.js"
   },
   "author": "",
