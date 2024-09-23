@@ -1,3 +1,0 @@
-bbdfa41 add preversion, postversion scripts
-46cc8a7 remove .idea folder
-b4ff994 add git ignore
