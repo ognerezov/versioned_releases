@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "preversion": "git log --oneline $(git describe --tags --abbrev=0).. > ./change_log/commits.txt",
     "patch-version": "npm version patch",
-    "postversion": "git push --follow-tags",
+    "postversion": "save-log && git push --follow-tags",
+    "save-log" : "mkdir ./change_log/$npm_package_version/ && mv ./change_log/commits.txt  ./change_log/$npm_package_version/commits.txt && git add ./change_log/$npm_package_version/commits.txt && git commit --amend --no-edit",
     "run": "node index.js"
   },
   "author": "",
