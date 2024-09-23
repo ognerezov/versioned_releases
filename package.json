@@ -1,11 +1,11 @@
 {
   "name": "versioned_releases",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Versioned releases",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion" : "git log --oneline $(git describe --tags --abbrev=0).. > ./change_log/commits.txt",
+    "preversion": "git log --oneline $(git describe --tags --abbrev=0).. > ./change_log/commits.txt",
     "patch-version": "npm version patch",
     "postversion": "git push --follow-tags",
     "run": "node index.js"
