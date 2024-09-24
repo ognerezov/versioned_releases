@@ -28,6 +28,37 @@ async function fetchPR(commits){
         })))
 }
 
+async function fetchBranches(commits){
+    if(!commits?.length){
+        return ""
+    }
+
+    return  await Promise.all(commits.map(commit =>
+        new Promise(function (resolve, reject){
+            exec(`git name-rev ${commit}`,
+                (error, stdout, _) => {
+                    if (error !== null) {
+                        console.log(`exec error: ${error}`);
+                        reject(error)
+                    }
+                    let branch = ""
+                    try{
+                        const data = stdout ? stdout.split(" ") : ["", ""]
+                        const fullPath = data.length > 1 ? data[1].trim() : ""
+                        const path = fullPath.split("/")
+                        const raw = path.length > 2 ? path[2] : fullPath
+                        branch = raw.split("~")[0]
+                    }catch (e) {
+                        reject(e)
+                    }
+                    resolve({
+                        branch,
+                        commit
+                    })
+                });
+        })))
+}
+
 async function process() {
     try {
         const data = await fs.readFile('./change_log/commits.txt', { encoding: 'utf8' });
@@ -36,8 +67,12 @@ async function process() {
             console.log(line)
         }
 
-        const res = await fetchPR(lines)
+        const prs = await fetchPR(lines)
         console.log("------")
+        console.log(prs)
+
+        const res = await fetchBranches(lines);
+        console.log("******")
         console.log(res)
     } catch (err) {
         console.log(err);
