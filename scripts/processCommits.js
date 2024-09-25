@@ -132,9 +132,6 @@ async function process() {
 
     } catch (err) {
         console.log(err);
-        for(const e of err.errors){
-            console.log(e)
-        }
     }
 }
 module.exports = process()
