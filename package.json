@@ -1,6 +1,6 @@
 {
   "name": "versioned_releases",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Versioned releases",
   "main": "index.js",
   "scripts": {
