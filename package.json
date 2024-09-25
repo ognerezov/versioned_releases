@@ -7,9 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "preversion": "git log --pretty=format:\"%h\" $(git describe --tags --abbrev=0).. > ./change_log/commits.txt && npm run process-commits",
     "patch-version": "npm version patch",
+    "minor-version": "npm version minor",
+    "major-version": "npm version major",
     "save-log": "rm ./change_log/commits.txt && mkdir ./change_log/$npm_package_version/ && mv ./change_log/change_log.md  ./change_log/$npm_package_version/change_log.md && git add ./change_log/$npm_package_version/change_log.md && git commit --amend --no-edit",
     "process-commits": "node scripts/processCommits.js",
-    "postversion": "npm run save-log && git push --follow-tags && npm run release",
+    "postversion": "npm run save-log && git push && npm run push-tag && npm run release",
+    "push-tag": "git push origin tag v$npm_package_version",
     "release": "gh release create v$npm_package_version --title \"v$npm_package_version\" --notes-file=./change_log/$npm_package_version/change_log.md",
     "run": "node index.js"
   },
