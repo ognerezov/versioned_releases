@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "git log --pretty=format:\"%h\" $(git describe --tags --abbrev=0).. > ./change_log/commits.txt",
-    "patch-version": "npm run process-commits && npm version patch",
+    "preversion": "git log --pretty=format:\"%h\" $(git describe --tags --abbrev=0).. > ./change_log/commits.txt && npm run process-commits",
+    "patch-version": "npm version patch",
     "save-log": "rm ./change_log/commits.txt && mkdir ./change_log/$npm_package_version/ && mv ./change_log/change_log.md  ./change_log/$npm_package_version/change_log.md && git add ./change_log/$npm_package_version/change_log.md && git commit --amend --no-edit",
-    "process-commits": "node scripts/processCommits.js && save-log",
-    "postversion": "process-commits && save-log && git push --follow-tags",
+    "process-commits": "node scripts/processCommits.js",
+    "postversion": "npm run save-log && git push --follow-tags",
     "run": "node index.js"
   },
   "author": "",
