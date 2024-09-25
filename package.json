@@ -9,7 +9,8 @@
     "patch-version": "npm version patch",
     "save-log": "rm ./change_log/commits.txt && mkdir ./change_log/$npm_package_version/ && mv ./change_log/change_log.md  ./change_log/$npm_package_version/change_log.md && git add ./change_log/$npm_package_version/change_log.md && git commit --amend --no-edit",
     "process-commits": "node scripts/processCommits.js",
-    "postversion": "npm run save-log && git push --follow-tags",
+    "postversion": "npm run save-log && git push --follow-tags && npm run release",
+    "release": "gh release create v$npm_package_version --title \"v$npm_package_version\" --notes-file=./change_log/$npm_package_version/change_log.md",
     "run": "node index.js"
   },
   "author": "",
